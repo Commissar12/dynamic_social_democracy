@@ -3,7 +3,7 @@ subtitle: Hindenburg's inner circle is conspiring against him...
 view-if: chancellor = "Brüning" and (year = 1932 and month >= 5) and president = "Hindenburg" and spd_in_government = 0 and (hindenburg_angry_bruning >= 200 or (hindenburg_angry_bruning >= 175 and hindenburg_sacked)) and not presidential_powers and not cvp_formed and not reparations_resolved
 on-arrival: {!
 
-if (Q.democracy_force >= (Q.far_right_force + Q.reichswehr_force)*2) {
+if (Q.democracy_force >= (Q.far_right_force + (Q.reichswehr_strength*Q.reichswehr_militancy)*2) {
     Q.hindenburg_paramilitary_explode = 1;
 } else if (Q.pro_republic >= 70) and ((Q.spd_votes + Q.kpd_votes >= 55) or ((Q.spd_votes + Q.z_votes + Q.ddp_votes) >= 55 and !Q.dstp_formed) or (Q.spd_votes + Q.z_votes >= 55) or ((Q.spd_votes + Q.z_votes + Q.ddp_votes + Q.kpd_votes >= 60) and !Q.dstp_formed and Q.z_ideology == "Left") or ((Q.spd_votes + Q.z_votes + Q.kpd_votes >= 60) and Q.z_ideology == "Left") or ((nsdap_votes + dnvp_votes + dvp_votes < 25) and Q.dnvp_ideology == "Radical" and Q.dvp_leader == "Dingeldey") or ((nsdap_votes + dnvp_votes < 25) and Q.dnvp_ideology == "Radical") or ((nsdap_votes + dnf_votes + dvp_votes < 25) and Q.dnvp_ideology == "Moderate" and Q.dvp_leader == "Dingeldey") or ((nsdap_votes + dnf_votes < 25) and Q.dnvp_ideology == "Moderate")
     Q.hindenburg_votes_explode = 1;
