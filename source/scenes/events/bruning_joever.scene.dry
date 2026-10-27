@@ -1,7 +1,17 @@
 title: Brüning's Race against Time
 subtitle: Hindenburg's inner circle is conspiring against him...
 view-if: chancellor = "Brüning" and (year = 1932 and month >= 5) and president = "Hindenburg" and spd_in_government = 0 and (hindenburg_angry_bruning >= 200 or (hindenburg_angry_bruning >= 175 and hindenburg_sacked)) and not presidential_powers and not cvp_formed and not reparations_resolved
-on-arrival: bruning_joever = 1
+on-arrival: {!
+
+if (Q.democracy_force >= (Q.far_right_force + Q.reichswehr_force)*2) {
+    Q.hindenburg_paramilitary_explode = 1;
+} else if (Q.pro_republic >= 70) and ((Q.spd_votes + Q.kpd_votes >= 55) or ((Q.spd_votes + Q.z_votes + Q.ddp_votes) >= 55 and !Q.dstp_formed) or (Q.spd_votes + Q.z_votes >= 55) or ((Q.spd_votes + Q.z_votes + Q.ddp_votes + Q.kpd_votes >= 60) and !Q.dstp_formed and Q.z_ideology == "Left") or ((Q.spd_votes + Q.z_votes + Q.kpd_votes >= 60) and Q.z_ideology == "Left") or ((nsdap_votes + dnvp_votes + dvp_votes < 25) and Q.dnvp_ideology == "Radical" and Q.dvp_leader == "Dingeldey") or ((nsdap_votes + dnvp_votes < 25) and Q.dnvp_ideology == "Radical") or ((nsdap_votes + dnf_votes + dvp_votes < 25) and Q.dnvp_ideology == "Moderate" and Q.dvp_leader == "Dingeldey") or ((nsdap_votes + dnf_votes < 25) and Q.dnvp_ideology == "Moderate")
+    Q.hindenburg_votes_explode = 1;
+} else {
+    Q.bruning_joever = 1;
+}
+
+!}
 new-page: true
 tags: event
 max-visits: 1
@@ -12,13 +22,26 @@ face-image: img/portraits/BrüningHeinrich.jpg
 
 Brüning's days are numbered. The only reason President Hindenburg is keeping him around is solely by the fact of his foreign policy expertise, and his claim that he's only 'one hundred meters from the finish line' from achieving a huge breakthrough in terms of securing an abolishment of reparations at Lausanne and Germany's rearmament at Geneva, an issue close to Hindenburg's heart. The only hope for Brüning's political salvation rests in those conferences. [? if not hindenburg_sacked: There is also no precedent of the President sacking a government that still enjoys a parliamentary majority. ?]
 
-However, General Kurt von Schleicher sees Brüning as the biggest obstacle in his '<span class="tooltip-text" title="Coined by conservative elites like Schleicher and Papen, this strategy aims to control the dynamic Nazi movement and integrate it into the state by introducing the party to government. In their eyes, this would moderate the Nazis, transforming them into a constructive component of the state.">taming strategy</span>', as Brüning has refused to take serious efforts toward bringing the <span style="color: #7A3C00;">national</span> <span style="color: #3E88B3;">opposition</span> into government. The sense of urgency Schleicher has invoked onto the issue, along with his convincing of Hindenburg's State Secretary Otto Meissner and his son Oskar, has brought Hindenburg to make an early and rash decision on the matter.
+However, General Kurt von Schleicher sees Brüning as the biggest obstacle in his '<span class="tooltip-text" title="Coined by conservative elites like Schleicher and Papen, this strategy aims to control the dynamic Nazi movement and integrate it into the state by introducing the party to government. In their eyes, this would moderate the Nazis, transforming them into a constructive component of the state.">taming strategy</span>', as Brüning has refused to take serious efforts toward bringing the <span style="color: #7A3C00;">national</span> <span style="color: #3E88B3;">opposition</span> into government. The sense of urgency Schleicher has invoked onto the issue, along with his convincing of Hindenburg's State Secretary Otto Meissner and his son Oskar, has brought Hindenburg to the verge of an early and rash decision on the matter.
 
+- @hindenburg_coward
 - @schleicher_time
+
+@hindenburg_coward
+title: Chancellor Brüning holds on!
+subtitle: President Hindenburg has stepped back from the precipice.
+unavailable_subtitle: President Hindenburg and his Camarilla are resolute in their course.
+choose-if: hindenburg_paramilitary_explode or hindenburg_votes_explode
+
+[? if hindenburg_votes_explode: The relative weakness of the far-right and the strong performance of republican forces in the recent elections have convinced Hindenburg that the time for a decisive confrontation is not yet ripe.?] [? if hindenburg_paramilitary_explode: A round of General Staff wargames conducted at Hindenburg's demand have revealed the Reichswehr is unprepared to challenge the left-wing paramilitaries head on, even with the support of the SA. The results have terrified Reichswehr strategic planners and evaporated the President's earlier resolve. ?] Schleicher continues to urge immediate action, fearing the window to abrogate parliamentary government will pass, but the Old Marshal knows better than to send his forces into certain destruction at the hands of a superior foe. Eventually, the enemy must divide itself, and then the chance for a defeat-in-detail will come. For now, the President will bide his time, but should Brüning fail at Lausanne or the strength of the left falter...
+
+[? if not hindenburg_votes_explode: The fate of German Democracy sits on a knife's edge. ?] [? if hindenburg_paramilitary_explode: The fate of German Democracy rests at the tip of a bayonet. ?] 
 
 @schleicher_time
 title: Chancellor Brüning is sacked!
 subtitle: President Hindenburg dismisses the government.
+unavailable_subtitle: President Hindenburg is not confident enough in the strength of reactionary forces to risk such a move.
+choose-if: bruning_joever
 go-to: successor_menu
 
 Former Chancellor Brüning has been dismissed—despite commanding a parliamentary majority. It appears Schleicher has struck an unwritten deal with the <span style="color: #7A3C00;">**NSDAP**</span>, promising “fruitful cooperation” with a new right-wing cabinet that[? if sa_nationwide_ban:&nbsp;lifted the ban on the <span style="color: #7A3C00;">**SA**</span> and?] called for new Reichstag elections.
